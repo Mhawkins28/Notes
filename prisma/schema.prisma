@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+  //TODO add db url once creted on atlas
+}
+
+model Note {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String? 
+  content String
+  favorite Boolean @default(false)
+  category String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+//TODO 1- use 'npx prisma generate' to load the schema into the prisma client then 2- use 'npx prisma db push' to add the schema to the db
+
+//? should I add a user model now or make it post mvp? (airBnB clone video - https://www.youtube.com/watch?v=c_-b_isI4vg - has good example of relationship between user and other models)
